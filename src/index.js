@@ -28,7 +28,7 @@ class Graph extends Component {
     let edgesChange = !isEqual(this.props.graph.edges, nextProps.graph.edges);
     let optionsChange = !isEqual(this.props.options, nextProps.options);
     let eventsChange = !isEqual(this.props.events, nextProps.events);
-    
+
     if (nodesChange) {
       const idIsEqual = (n1, n2) => n1.id === n2.id;
       const nodesRemoved = differenceWith(this.props.graph.nodes, nextProps.graph.nodes, idIsEqual);
@@ -36,13 +36,13 @@ class Graph extends Component {
       const nodesChanged = differenceWith(differenceWith(nextProps.graph.nodes, this.props.graph.nodes, isEqual), nodesAdded);
       this.patchNodes({nodesRemoved, nodesAdded, nodesChanged});
     }
-    
+
     if (edgesChange) {
       const edgesRemoved = differenceWith(this.props.graph.edges, nextProps.graph.edges, isEqual);
       const edgesAdded = differenceWith(nextProps.graph.edges, this.props.graph.edges, isEqual);
       this.patchEdges({edgesRemoved, edgesAdded});
     }
-    
+
     if (optionsChange) {
       this.Network.setOptions(nextProps.options);
     }
@@ -56,19 +56,19 @@ class Graph extends Component {
       for (let eventName of Object.keys(events))
         this.Network.on (eventName, events[eventName])
     }
-    
+
     return false;
   }
 
   componentDidUpdate() {
     this.updateGraph();
   }
-  
+
   patchEdges({edgesRemoved, edgesAdded}) {
     this.edges.remove(edgesRemoved);
     this.edges.add(edgesAdded);
   }
-  
+
   patchNodes({nodesRemoved, nodesAdded, nodesChanged}) {
     this.nodes.remove(nodesRemoved);
     this.nodes.add(nodesAdded);
@@ -138,7 +138,7 @@ class Graph extends Component {
 Graph.defaultProps = {
   graph: {},
   getNetwork: React.PropTypes.function,
-  style: { width: '640px', height: '480px' }
+  style: { width: '100%', height: '100%' }
 };
 
 export default Graph;
